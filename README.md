@@ -20,7 +20,9 @@ dian团队算法方向招生题
         
         F1-score是上面两个的调和平均数，算是一个综合考量。
 
-  
+  *这边贴一张我的测试截图，可以看到每个分类单独计算*
+
+  ![image](https://github.com/szddzzy/dian_test/blob/main/test_pic1.png)
 
         
   **对于全连接神经网络的理解:**
