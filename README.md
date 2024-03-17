@@ -133,5 +133,57 @@ dian团队算法方向招生题
 
         可见batch的选取也不是越小越好
 
+# 学习记录：(第三部分题目：attention)
+
+  **对于self-attention的理解：**
+  
+        self-attention和RNN有相似之处，他们都是为了探求样本之间的顺序关系，不同于普通
+        
+        全连接层只关注单个样本和标签的关系，self-attention还关注了样本之间的关系
+        
+        并且他相对于RNN改进的地方在于，self不会随着样本间的距离变远而导致关联性下降，
+        
+        也就是说self可以无视距离，第一样本也可以和最后一个样本进行联系。
+
+  *对于self-attention来说，最关键的就是下面这行代码(k已经过转置)*
+
+         a=torch.matmul(q,k)
+
+         这计算出来的就是所谓的注意力权重，在后面会详写
+        
+  **对于multi-head的理解：**
+  
+        普通的self-attention只有一个头，也就是一个输入数据对应一个query，一个key,
+        
+        一个value.而对于multi-head，一个输入数据对应了多个queries(复数严谨)，每个
+        
+        queries对应了不同的keye和value。这样增多了模型的权重个数，就像我之前写的
+        
+        全连接层隐藏层个数的作用一样，可以增强学习效果，但代价是速度会减慢，且还会有
+        
+        过拟合的风险。
+
+  *下面这张图是这MHA模型的其中一个头的注意力权重矩阵*
+
+![image](https://github.com/szddzzy/dian_test/blob/main/test_pic7.png)
+
+
+        
+  **对于multi-query的理解：**
+  
+        与multi-head类似，一个输入数据有多个queries，但是对应的key和value只有一个，
+        
+        增大了运算速度，但学习效果不如multi-head,也有可能有欠拟合的风险
+        
+  **对于grouped-query的理解：**
+  
+        算是上面两种的一个综合，既兼顾了速度，也有准确性。他将输入数据的多个queries
+        
+        进行分组，每组对应一个key和value。
+
+
+
+
+
 
 
