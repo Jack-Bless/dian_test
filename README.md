@@ -20,7 +20,7 @@ dian团队算法方向招生题
         
         F1-score是上面两个的调和平均数，算是一个综合考量。
 
-  *这边贴一张我的测试截图，可以看到每个分类单独计算*
+  *这边贴一张我的测试截图，可以看到每个分类单独计算指标*
 
   ![image](https://github.com/szddzzy/dian_test/blob/main/test_pic1.png)
 
@@ -32,6 +32,16 @@ dian团队算法方向招生题
         反向计算梯度，也就是损失(预测值与标签值的差距，这个差距也有多种计算方式)对权重的求导
         
         w=w-grad*lr,通过反向传播来逐渐减小损失的大小，是预测值向标签值逼近。
+
+  *下面是一张简单的 loss-weight 函数*
+
+  ![image](https://github.com/szddzzy/dian_test/blob/main/test_pic2.png)
+
+        由这张图可以很直观地了解loss和weight之间的关系，每一次梯度更新实际上就是使weight向能够让
+
+        loss减小的方向移动，最后找出让loss最小的weight，也即找出极小值点。
+
+        但在实际中，往往极小值点并不是最小值点。而各种优化器就是为我们解决之一难题的。
         
   **对模型层数的理解：**
     
