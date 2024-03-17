@@ -52,6 +52,14 @@ dian团队算法方向招生题
         这就不是我们想要的结果。我们想要的是模型对输入数据敏感，但对噪声忽视，
         
         所以模型层数不能太多，也不能太少。
+
+  *下面两张图片是我分别采用较多隐藏层和没有隐藏层的可视化矩阵*
+
+  ![image](https://github.com/szddzzy/dian_test/blob/main/test_pic3.png)
+
+  ![image](https://github.com/szddzzy/dian_test/blob/main/test_pic4.png)
+
+        可以看出，两者还是有显著差别
         
   **对全连接层处理图片问题的理解：**
     
