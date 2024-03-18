@@ -9,6 +9,7 @@ dian团队算法方向招生题
 -[第二部分（RNN网络）](#学习记录：(第二部分题目：RNN网络))
 
 -[第三部分（Attention）](#学习记录：(第三部分题目：Attention))
+
 # 学习记录：(第一部分题目：全连接层)
 
    **对于测评指标的基本理解：(多分类问题)**
@@ -75,6 +76,12 @@ dian团队算法方向招生题
   就没办法表示这种空间上的关系。而这种空间关系往往还是图片数据处理的关键，所以
         
   全连接层处理mnist问题的accuracy有个极限值，很难再提高了。
+
+  *实现图片数据维度的转换也很简单，下面一行代码就搞定了*
+
+        x=x.view(-1,784)
+        
+        #将原本的图片数据大小(N,28,28)转换为矩阵(N,784)，便于模型处理
 
 # 学习记录：(第二部分题目：RNN网络)
 
@@ -224,6 +231,18 @@ dian团队算法方向招生题
   与multi-head类似，一个输入数据有多个queries，但是对应的key和value只有一个，
         
   增大了运算速度，但学习效果不如multi-head,也有可能有欠拟合的风险
+
+  **代码细节：**
+
+  所有的头分成一个组，也只有一个key和value
+
+        group=self.x_q1(x_data)+self.x_q2(x_data)+self.x_q3(x_data)+self.x_q4(x_data)
+
+        #前面线性变换得到的头融合为一个组
+
+        a=torch.mm(group,k.t())
+
+        #将这个组和对应的key计算注意力
         
   **对于grouped-query的理解：**
   
@@ -231,7 +250,25 @@ dian团队算法方向招生题
         
   进行分组，每组对应一个key和value。
 
+  **代码细节：**
 
+  与MQA不一样的是所有的头分成了多个组，每个组都有对应的key和value
+
+        group1=self.x_q1(x_data)+self.x_q2(x_data)
+        
+        group2=self.x_q3(x_data)+self.x_q4(x_data)
+        
+        #将前面通过线性变换得到的4个头分成两组
+        
+        a1=torch.mm(group1,k1.t())
+        
+        a1=self.softmax(a1)
+        
+        a2=torch.mm(group2,k2.t())
+        
+        a2=self.softmax(a2)
+
+        #每组query在与对应的k计算注意力
 
 
 
