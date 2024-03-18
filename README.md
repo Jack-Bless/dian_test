@@ -151,9 +151,29 @@ dian团队算法方向招生题
 
          这计算出来的就是所谓的注意力权重，在后面会详写
 
-  *先贴一个权重计算的公式*
+  *先贴一个公式*
 
   ![image](https://github.com/szddzzy/dian_test/blob/main/images/16d50ead3d0a4db0aee8e72bcff3098b.jpg)
+
+  **关于Q,K,V的理解：**
+
+  ![image](https://github.com/szddzzy/dian_test/blob/main/images/q.png)
+
+  ![image](https://github.com/szddzzy/dian_test/blob/main/images/k.png)
+
+  ![image](https://github.com/szddzzy/dian_test/blob/main/images/v.png)
+
+  q,k,v均由输入数据线性变化得到，那么问题是，在注意力权重的公式中，Q*K.T又是什么意思？
+
+  矩阵的相乘实际上就是*第一个矩阵的行向量与第二个矩阵的列向量求内积*，而向量内积的大小
+
+  实际上可以反映两个向量的角度大小，极限情况，两个向量垂直内积就是0。所以向量的内积可以
+
+  用来表示两者的相关度。这就好理解q*k.t实际上就是每个样本的query(矩阵Q的每一行可以看作
+  
+  一个样本，即单词，的query)与所有样本的key的相关度,而query和key的相关度就能转换为单词
+
+  之间的相关度。所以Q*K.T就是注意力权重，防止他过大，会除以个dk。
         
   **对于multi-head的理解：**
   
@@ -166,6 +186,10 @@ dian团队算法方向招生题
   全连接层隐藏层个数的作用一样，可以增强学习效果，但代价是速度会减慢，且还会有
         
   过拟合的风险。
+
+  *下面是multi-head的原理图*
+
+  ![image](https://github.com/szddzzy/dian_test/blob/main/images/Screenshot_2024-03-15-22-50-55-96_149003a2d400f6a.jpg)
 
   *下面这张图是这MHA模型的其中一个头的注意力权重矩阵*
 
