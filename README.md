@@ -87,7 +87,7 @@ dian团队算法方向招生题
 
   ![image](https://github.com/szddzzy/dian_test/blob/main/images/test_pic9.png)
 
-        可以看到，矩阵数据被转换为向量，失去了孔吉纳关系，
+        可以看到，矩阵数据被转换为向量，失去了空间关系，
 
         对训练效果产生影响。
 
