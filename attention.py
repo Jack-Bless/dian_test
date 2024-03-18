@@ -16,7 +16,7 @@ x_data=torch.rand(4,3)
 """———————————————————————————————我 是 分 割 线—————————————————————————————————"""
 """
 multi-head生成了8个头，但是后面的MQA和GQA就只用了两个头，
-为了更详细的展示运算原理，MQA和GQA的代码用的是普通的nn.linear，
+为了更详细的展示我对运算原理的理解，MQA和GQA的代码用的是普通的nn.linear，
 没有使用多维度的张量。
 """
 class Multi_head(torch.nn.Module):
@@ -41,7 +41,7 @@ multi_head=Multi_head()
 t,_=multi_head(x_data)
 plt.imshow(t, cmap='hot', interpolation='nearest', aspect='auto')#画矩阵
 plt.colorbar()#显示颜色条
-plt.title('pred_data and real_data')#设置标题
+plt.title('attention')#设置标题
 plt.show()
 
 """———————————————————————————————我 是 分 割 线—————————————————————————————————"""
@@ -93,7 +93,7 @@ grouped_query=Grouped_query()
 t,_=grouped_query(x_data)
 plt.imshow(t, cmap='hot', interpolation='nearest', aspect='auto')#画矩阵
 plt.colorbar()#显示颜色条
-plt.title('pred_data and real_data')#设置标题
+plt.title('attention')#设置标题
 plt.show()
 
 
@@ -133,7 +133,7 @@ multi_query=Multi_query()
 t,_=multi_query(x_data)
 plt.imshow(t, cmap='hot', interpolation='nearest', aspect='auto')#画矩阵
 plt.colorbar()#显示颜色条
-plt.title('pred_data and real_data')#设置标题
+plt.title('attention')#设置标题
 plt.show()
 
 
