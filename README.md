@@ -191,9 +191,33 @@ dian团队算法方向招生题
 
   ![image](https://github.com/szddzzy/dian_test/blob/main/images/Screenshot_2024-03-15-22-50-55-96_149003a2d400f6a.jpg)
 
+        这张图解释了具体的运算细节，每个头都是由一个query，key，value分出来的，且对应的query与对应的
+
+        key进行运算。
+
   *下面这张图是这MHA模型的其中一个头的注意力权重矩阵*
 
 ![image](https://github.com/szddzzy/dian_test/blob/main/images/test_pic7.png)
+
+  **代码细节：**
+
+  在*multi_head*的代码里，我写了8个头，实现方法如下：
+
+      self.x_q=torch.nn.Linear(3,24)
+
+      #这一步先将q变大，方便后续分出多个头
+
+      q=self.x_q(x_data)
+
+      q=q.view(8,4,3)#8个头，每个头都是(4*3)的矩阵
+
+      #然后这里把原本一个很大的q分成了8个(4，3)矩阵，
+
+      大小与key相同。q的维度也就变成了(8,4,3)。
+
+  *这种方法可以有效的节省代码量，而在后面MQA和GQA的代码中，没有使用这种分头方法，*
+  
+  *而是按照李宏毅老师的讲法，直接对同一个样本进行多个线性变换，得到多个头，这样更能展现对模型的理解*
       
   **对于multi-query的理解：**
   
