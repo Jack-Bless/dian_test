@@ -107,11 +107,14 @@ dian团队算法方向招生题
 
   ![image](https://github.com/szddzzy/dian_test/blob/main/images/v2-9524a28210c98ed130644eb3c3002087_r.png)
 
-        每一次的数据都与上一次有所关联
+        每一次的数据都有上一次的数据作为输入，由此实现了数据样本之间的关联。
+
+        这对于序列的学习很有帮助。
 
   **下面两行代码实际上就是整个RNN模型最关键的地方**
 
         combine_data=self.linear1(x_data)+hide_data#融合上一次的隐藏层数据和这一次的输入数据
+        
         hide_data=self.tanh(combine_data)#计算这一次的隐藏层数据
         
   **RNN的缺陷：**
