@@ -96,7 +96,9 @@ dian团队算法方向招生题
     
     optimizer=torch.optim.SGD(net.parameters(),lr=0.01)#优化器
 
-  *至此*，完成了对模型的全部构造，后面则可以开始**反向传播**计算梯度来对权重进行优化
+  *至此*，完成了对全连接模型的全部构造，后面则可以开始**反向传播**计算梯度来对权重进行优化，
+
+  优化原理即为上图所示。
         
   **对模型层数的理解：**
     
@@ -115,6 +117,20 @@ dian团队算法方向招生题
   ![image](https://github.com/szddzzy/dian_test/blob/main/images/test_pic4.png)
 
         可以看出，两者还是有显著差别
+
+  **代码细节：**
+
+        self.l1=torch.nn.Linear(inputs_size,h1_size)
+        
+        self.l2=torch.nn.Linear(h1_size,h2_size)
+        
+        self.l3=torch.nn.Linear(h2_size,h3_size)
+        
+        self.l4=torch.nn.Linear(h3_size,h4_size)
+        
+        self.l5=torch.nn.Linear(h4_size,outputs_size)
+
+  *这是一个包含4个隐藏层的全连接网络，训练效果略好于单层的模型*
         
   **对全连接层处理图片问题的理解：**
     
@@ -140,7 +156,7 @@ dian团队算法方向招生题
 
         可以看到，矩阵数据被转换为向量，失去了空间关系，
 
-        对训练效果产生影响。
+        不利于训练，所以准确率存在上限。
 
 # 学习记录：(第二部分题目：RNN网络)
 
@@ -164,9 +180,13 @@ dian团队算法方向招生题
 
   **下面两行代码实际上就是整个RNN模型最关键的地方**
 
-        combine_data=self.linear1(x_data)+hide_data#融合上一次的隐藏层数据和这一次的输入数据
+        combine_data=self.linear1(x_data)+hide_data
         
-        hide_data=self.tanh(combine_data)#计算这一次的隐藏层数据
+        #融合上一次的隐藏层数据和这一次的输入数据
+        
+        hide_data=self.tanh(combine_data)
+        
+        #计算这一次的隐藏层数据，并在下一次作为输入数据的一部分
         
   **RNN的缺陷：**
     
@@ -176,9 +196,25 @@ dian团队算法方向招生题
         
   对比其他模型也要满上很多。而Self-attention机制实际上就很好的解决这两个问题，
         
-  它可以无视这种距离的远近对关联度计算的影响，并且可以并行计算。下一个题目里有
+  它可以无视这种距离的远近对关联度计算的影响，并且可以并行计算。
+
+  **代码细节：**
+
+  *下面是attention的代码：*
+
+        q=self.x_q(x_data)
         
-  我对attention的理解。
+        k=self.x_k(x_data)
+        
+        a=torch.matmul(q,k)
+
+  *矩阵相乘可以让某个样本与其他所有样本的key**平等地**做向量内积，从而得出注意力矩阵（即关联度），无视样本的距离限制*
+
+        combine_data=self.linear1(x_data)+hide_data
+
+        hide_data=self.tanh(combine_data)
+
+  *而RNN却**只能和上一层**的数据直接发生运算，无法像attention那样**直接**与其他所有样本发生关联*
         
   **对本题的理解：**
     
@@ -186,9 +222,9 @@ dian团队算法方向招生题
         
   我用基础的全连接层也试了一下，两者的正确率区别不大，而且RNN更耗时间。
 
-  因为上述的各种原因，对fashion-mnist的训练和测试准确率只能维持在85%左右。
+  因为上述的各种原因，对fashion-mnist的训练和测试准确率只能维持在**85%左右**。
 
-  另外，对我来说话有个新发现：
+  **另外，对我来说话有个新发现：**
 
   batch的选择并不是越小越好(我之前一直以为batch选的小，训练次数多，效果就好)
 
