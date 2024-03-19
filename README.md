@@ -28,7 +28,32 @@ dian团队算法方向招生题
 
   ![image](https://github.com/szddzzy/dian_test/blob/main/images/test_pic1.png)
 
+  **代码细节：**
+
+  *第一个函数evaluation_record用来记录指标参数*
+
+        for i in range(10):
         
+          TP[i]+=((labels==i)*(pred==i)).sum().item()
+        
+          FP[i]+=((pred==i)*(labels!=i)).sum().item()
+        
+          FN[i]+=((pred!=i)*(labels==i)).sum().item()
+        
+          TN[i]+=((pred!=i)*(labels!=i)).sum().item()
+        
+        #分别记录十个不同分类的各项指标数据
+
+  *第二个函数evaluation_cal用来计算并输出指标*
+
+        for i in range(10):
+        
+          precision=100*TP[i]/(TP[i]+FP[i])
+        
+          recall=100*TP[i]/(TP[i]+FN[i])
+        
+          F1_score=2*(precision*recall/(precision+recall))
+   
   **对于全连接神经网络的理解:**
     
   根据我个人的理解，神经网络的作用就是找出输入数据和输出数据之间的映射关系，方法是通过
@@ -46,6 +71,32 @@ dian团队算法方向招生题
         loss减小的方向移动，最后找出让loss最小的weight，也即找出极小值点。
 
         但在实际中，往往极小值点并不是最小值点。而各种优化器就是为我们解决之一难题的。
+
+  **代码细节：**
+
+  模型主要包含分为三个要素，*设置**前馈**过程*，*设定**损失函数***，*选择**优化器***
+
+        class model(torch.nn.Module):
+        
+    def __init__(self):
+    
+        super(model,self).__init__()#继承父类，算是标准格式
+        
+        self.linear=torch.nn.Linear(input_size,output_size)#写了一个一层的线性变换
+        
+    def forward(self,x):
+    
+        return self.linear(x)#前向传播
+
+    #上面的代码完成了前馈过程的构造
+
+    model=model()#类实例化
+
+    criterion=torch.nn.MSELoss()#损失模型
+    
+    optimizer=torch.optim.SGD(net.parameters(),lr=0.01)#优化器
+
+  *至此*，完成了对模型的全部构造，后面则可以开始**反向传播**计算梯度来对权重进行优化
         
   **对模型层数的理解：**
     
