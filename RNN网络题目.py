@@ -98,7 +98,7 @@ optimizer=torch.optim.Adam(net.parameters(),lr=lr)
 #下面是准备数据和训练测试的过程，和前面的题目一样，就不多写注释了
 transform=transforms.Compose([transforms.ToTensor(),
                              transforms.Normalize((0.1307,),(0.3081))])
-train_dataset=datasets.FashionMNIST(root='mnist',
+train_dataset=datasets.FashionMNIST(root='mnist_fashion',
                              train=True,
                              download=True,
                              transform=transform)
@@ -108,7 +108,7 @@ train_loader=DataLoader(train_dataset,
                         batch_size=batch_size,
                         drop_last=True)
 
-test_dataset=datasets.FashionMNIST(root='mnist',
+test_dataset=datasets.FashionMNIST(root='mnist_fashion',
                              train=False,
                              download=True,
                              transform=transform)
