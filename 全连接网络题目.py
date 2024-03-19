@@ -132,7 +132,7 @@ transform=transforms.Compose([transforms.ToTensor(),
                              transforms.Normalize((0.5,),(0.5))])
 #transform将数据集中的数据转化为可处理的tensor并且正则化
 
-train_dataset=datasets.MNIST(root='mnist',#准备一下训练用的mnist
+train_dataset=datasets.MNIST(root='mnist_num',#准备一下训练用的mnist
                              train=True,
                              download=True,
                              transform=transform)
@@ -142,7 +142,7 @@ train_loader=DataLoader(train_dataset,
                         batch_size=batch_size,#处理一下数据，64个样本为一个batch并且随机取
                         drop_last=True)#关于这种处理方法的好处也写在文件后面了
 
-test_dataset=datasets.MNIST(root='mnist',#准备一下测试用的mnist
+test_dataset=datasets.MNIST(root='mnist_num',#准备一下测试用的mnist
                              train=False,
                              download=True,
                              transform=transform)
